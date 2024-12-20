@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "477886090194",
+    "project_id": "fusionbank-8f11e",
+    "storage_bucket": "fusionbank-8f11e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477886090194:android:c123bb51c63d560c0b960b",
+        "android_client_info": {
+          "package_name": "com.example.fusion_bank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx3VrkkreDjGDmCGN3uAYu0ut5NEMKhwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
