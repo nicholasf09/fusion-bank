@@ -58,6 +58,8 @@ class TopUp : AppCompatActivity() {
     }
 
     fun topUp(amount: Int) {
+        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        val formattedAmount = currencyFormat.format(amount).replace("Rp", "Rp ")
 
         db.collection("user").document(noRek).get()
             .addOnSuccessListener { result ->
@@ -65,17 +67,28 @@ class TopUp : AppCompatActivity() {
                 db.collection("user").document(noRek).update("saldo", saldo + amount)
                 reset()
             }
+
+        db.collection("transaksi")
+            .add(Transaksi(
+                noRek,
+                noRek,
+                amount,
+                "Top Up $formattedAmount",
+                com.google.firebase.Timestamp.now()
+            ))
     }
 
 
     fun reset() {
+        val back = { _: DialogInterface, _: Int ->
+            finish()
+        }
+
         AlertDialog.Builder(this)
             .setTitle("Top Up Successful")
             .setMessage("Your balance has been updated")
-            .setPositiveButton("OK", null)
+            .setPositiveButton("OK", DialogInterface.OnClickListener(back))
             .show()
-
-        findViewById<EditText>(R.id.topUpAmount).text.clear()
     }
 
     companion object {

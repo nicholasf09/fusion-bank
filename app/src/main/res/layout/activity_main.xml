@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F6F4F0"
+    android:background="#FBFBFB"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -62,9 +62,8 @@
             android:background="@drawable/card_background"
             android:padding="20dp">
 
-            <!-- Nama dan Nomor Kartu -->
             <TextView
-                android:id="@+id/card_name"
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -73,10 +72,10 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/card_number"
+                android:id="@+id/norek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/card_name"
+                android:layout_below="@id/username"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif"
                 android:text="0907 2004 2907 2004"
@@ -107,14 +106,14 @@
                 android:id="@+id/balance_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/card_number"
+                android:layout_below="@id/norek"
                 android:layout_marginTop="16dp"
                 android:text="Your balance"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/balance_amount"
+                android:id="@+id/saldo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/balance_label"
@@ -128,7 +127,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/balance_amount"
+                android:layout_below="@id/saldo"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_background"
                 android:gravity="center"
@@ -146,7 +145,7 @@
 
                     <ImageButton
                         android:layout_width="48dp"
-                        android:background="#F6F4F0"
+                        android:background="#FBFBFB"
                         android:layout_height="48dp"
                         android:contentDescription="Transfer"
                         android:src="@drawable/ic_mutasi" />
@@ -170,7 +169,7 @@
 
                     <ImageButton
                         android:layout_width="48dp"
-                        android:background="#F6F4F0"
+                        android:background="#FBFBFB"
                         android:layout_height="48dp"
                         android:contentDescription="Transfer"
                         android:src="@drawable/ic_topups" />
@@ -202,7 +201,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:contentDescription="Transfer"
-                        android:background="#F6F4F0"
+                        android:background="#FBFBFB"
                         android:src="@drawable/ic_scan" />
 
                     <TextView
@@ -229,7 +228,7 @@
 
                     <ImageButton
                         android:layout_width="48dp"
-                        android:background="#F6F4F0"
+                        android:background="#FBFBFB"
                         android:layout_height="47dp"
                         android:contentDescription="Transfer"
                         android:src="@drawable/ic_generate" />
