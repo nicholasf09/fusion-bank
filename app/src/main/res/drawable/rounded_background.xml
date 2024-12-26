@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="12dp" />
-    <solid android:color="#F4EDD3" /> <!-- Ganti dengan warna yang diinginkan -->
+    <solid android:color="#F6F4F0" /> <!-- Ganti dengan warna yang diinginkan -->
 </shape>
