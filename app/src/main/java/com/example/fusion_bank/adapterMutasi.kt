@@ -54,7 +54,7 @@ class adapterMutasi (private val data: List<Transaksi>) : RecyclerView.Adapter<a
         val monthName = SimpleDateFormat("MMMM", Locale.getDefault()).format(calendar.time)
 
         holder.tanggal.text = (calendar.get(Calendar.DAY_OF_MONTH).toString() + " $monthName " + calendar.get(Calendar.YEAR))
-        holder.rekTujuan.text = transaksi.receiverName
+        holder.rekTujuan.text = transaksi.receiver
         holder.berita.text = transaksi.berita
 
     }
