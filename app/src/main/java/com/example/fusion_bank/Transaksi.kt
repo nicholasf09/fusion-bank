@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 
 data class Transaksi(
     var sender: String,
-    var receiverName: String,
+    var receiver: String,
     var jumlah: Number,
     var berita: String,
     var tanggal: Timestamp
