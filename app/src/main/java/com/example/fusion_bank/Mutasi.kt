@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
@@ -121,10 +122,8 @@ class Mutasi : AppCompatActivity() {
 
             }
 
-            if (transaksi == arTransaksi[arTransaksi.size - 1]) {
-                textView.performClick()
-            }
         }
+        listBulan.get(listBulan.childCount - 1).performClick()
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
