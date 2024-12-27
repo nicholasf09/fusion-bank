@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         var googleSignInLayout = findViewById<LinearLayout>(R.id.googleSignInLayout);
 
 
-        btnSignIn.setOnClickListener(){
+        btnSignIn.setOnClickListener() {
             var email = etEmail.text.toString();
             var password = etPassword.text.toString();
             if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -58,26 +58,34 @@ class LoginActivity : AppCompatActivity() {
                     .get()
                     .addOnSuccessListener { documents ->
                         if (documents.isEmpty) {
-                            Toast.makeText(this, "Incorrect email or password!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Incorrect email or password!", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
                             val intent = Intent(this, MainActivity::class.java)
+                            MainActivity.email = email
+                            MainActivity.rekening = documents.documents[0].id
                             startActivity(intent)
                             finish()
                             Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show()
                         }
                     }
                     .addOnFailureListener { exception ->
-                        Toast.makeText(this, "Error getting documents: $exception", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Error getting documents: $exception",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
 
-        googleSignInLayout.setOnClickListener{
+        googleSignInLayout.setOnClickListener {
             signIn()
         }
     }
+
     private fun signIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -101,10 +109,15 @@ class LoginActivity : AppCompatActivity() {
                 if (idToken != null) {
                     firebaseAuthWithGoogle(idToken)
                 } else {
-                    Toast.makeText(this, "Google sign-in failed: No ID token received", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Google sign-in failed: No ID token received",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: ApiException) {
-                Toast.makeText(this, "Google sign-in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Google sign-in failed: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -123,24 +136,38 @@ class LoginActivity : AppCompatActivity() {
                             .get()
                             .addOnSuccessListener { querySnapshot ->
                                 if (querySnapshot.isEmpty) {
-                                    Toast.makeText(this, "Email not found in database", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Email not found in database",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 } else {
-                                    Toast.makeText(this, "Login Success}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Login Success}", Toast.LENGTH_SHORT)
+                                        .show()
                                     startActivity(Intent(this, MainActivity::class.java))
                                     MainActivity.email = email
                                     finish()
                                 }
                             }
                             .addOnFailureListener { exception ->
-                                Toast.makeText(this, "Error checking email in database: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this,
+                                    "Error checking email in database: ${exception.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                     } else {
-                        Toast.makeText(this, "Authentication failed: No email found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Authentication failed: No email found",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
 }
+
+

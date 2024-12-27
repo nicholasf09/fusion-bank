@@ -1,7 +1,9 @@
 package com.example.fusion_bank
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +31,22 @@ class MainActivity : AppCompatActivity() {
         var username = findViewById<TextView>(R.id.username)
         var noRek = findViewById<TextView>(R.id.norek)
         var saldo = findViewById<TextView>(R.id.saldo)
+        val _btnHistory = findViewById<ImageButton>(R.id.btnHistory)
+        val _btnTopUp = findViewById<ImageButton>(R.id.btnTopUp)
+
+        _btnHistory.setOnClickListener {
+            val intent = Intent(this, Mutasi::class.java)
+            Mutasi.noRek = noRek.text.toString()
+            Mutasi.nama = username.text.toString()
+            startActivity(intent)
+        }
+
+        _btnTopUp.setOnClickListener {
+            val intent = Intent(this, TopUp::class.java)
+            TopUp.noRek = noRek.text.toString()
+            startActivity(intent)
+        }
+
 
         db.collection("user")
             .whereEqualTo("email", email)
@@ -63,12 +81,9 @@ class MainActivity : AppCompatActivity() {
                 Log.w("TAG", "Error getting documents: ", exception)
             }
 
-
-
-
-
     }
     companion object {
         var email: String = ""
+        var rekening: String = ""
     }
 }

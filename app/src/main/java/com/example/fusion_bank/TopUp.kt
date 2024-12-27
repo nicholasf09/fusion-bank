@@ -1,6 +1,7 @@
 package com.example.fusion_bank
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -63,35 +64,67 @@ class TopUp : AppCompatActivity() {
 
         db.collection("user").document(noRek).get()
             .addOnSuccessListener { result ->
-                val saldo = result["saldo"].toString().toInt()
-                db.collection("user").document(noRek).update("saldo", saldo + amount)
-                reset()
+                // Ensure the saldo exists and is an integer
+                val saldo = result.getLong("saldo")?.toInt() ?: 0 // Safely parse saldo
+                db.collection("user").document(noRek)
+                    .update("saldo", saldo + amount)
+                    .addOnSuccessListener {
+                        // Log success
+                        reset()
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle update failure
+                        AlertDialog.Builder(this)
+                            .setTitle("Error")
+                            .setMessage("Failed to update balance: ${e.message}")
+                            .setPositiveButton("OK", null)
+                            .show()
+                    }
+            }
+            .addOnFailureListener { e ->
+                // Handle document fetch failure
+                AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Failed to fetch user data: ${e.message}")
+                    .setPositiveButton("OK", null)
+                    .show()
             }
 
+        // Add transaction after saldo update
         db.collection("transaksi")
-            .add(Transaksi(
-                noRek,
-                noRek,
-                amount,
-                "Top Up $formattedAmount",
-                com.google.firebase.Timestamp.now()
-            ))
+            .add(
+                Transaksi(
+                    noRek,
+                    noRek,
+                    amount,
+                    "Top Up $formattedAmount",
+                    com.google.firebase.Timestamp.now()
+                )
+            )
+            .addOnFailureListener { e ->
+                AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Failed to log transaction: ${e.message}")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
     }
 
 
     fun reset() {
-        val back = { _: DialogInterface, _: Int ->
-            finish()
-        }
-
         AlertDialog.Builder(this)
             .setTitle("Top Up Successful")
             .setMessage("Your balance has been updated")
-            .setPositiveButton("OK", DialogInterface.OnClickListener(back))
+            .setPositiveButton("OK") { _, _ ->
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finishAffinity() // Ensures all activities are removed
+            }
             .show()
     }
 
     companion object {
-        val noRek = "0907 2004"
+        var noRek: String = ""
     }
 }

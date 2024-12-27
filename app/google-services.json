@@ -12,7 +12,20 @@
           "package_name": "com.example.fusion_bank"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "477886090194-hggri1c637luk48e4a75q8g66amf6al6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fusion_bank",
+            "certificate_hash": "a8759d88e0b9e3428d7080e555a62f47910c3e2c"
+          }
+        },
+        {
+          "client_id": "477886090194-vfqh3vlsrkbehguuc1mf3gsd5mcerj0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAx3VrkkreDjGDmCGN3uAYu0ut5NEMKhwE"
@@ -20,7 +33,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477886090194-vfqh3vlsrkbehguuc1mf3gsd5mcerj0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477886090194:android:cfed071197df4ed00b960b",
+        "android_client_info": {
+          "package_name": "com.example.projectuas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477886090194-vfqh3vlsrkbehguuc1mf3gsd5mcerj0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx3VrkkreDjGDmCGN3uAYu0ut5NEMKhwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477886090194-vfqh3vlsrkbehguuc1mf3gsd5mcerj0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

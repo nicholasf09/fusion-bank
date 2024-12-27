@@ -138,12 +138,15 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:orientation="vertical"
                     android:gravity="center" >
 
                     <ImageButton
+                        android:id="@+id/btnHistory"
                         android:layout_width="48dp"
                         android:background="#FBFBFB"
                         android:layout_height="48dp"
@@ -160,7 +163,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginStart="30dp"
@@ -168,10 +172,11 @@
                     android:gravity="center" >
 
                     <ImageButton
+                        android:id="@+id/btnTopUp"
                         android:layout_width="48dp"
                         android:background="#FBFBFB"
                         android:layout_height="48dp"
-                        android:contentDescription="Transfer"
+                        android:contentDescription="Top Up"
                         android:src="@drawable/ic_topups" />
 
                     <TextView
@@ -191,7 +196,8 @@
 <!--                    android:layout_marginEnd="33dp" />-->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginEnd="30dp"
@@ -200,14 +206,14 @@
                     <ImageButton
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:contentDescription="Transfer"
+                        android:contentDescription="Payment"
                         android:background="#FBFBFB"
-                        android:src="@drawable/ic_scan" />
+                        android:src="@drawable/transfer" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Scan QR"
+                        android:text="Payment"
                         android:textStyle="bold"
                         android:textColor="#2E5077"
                         android:textSize="12sp" />
@@ -219,28 +225,6 @@
 <!--                    android:background="#2E5077"-->
 <!--                    android:layout_marginStart="33dp"-->
 <!--                    android:layout_marginEnd="33dp" />-->
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center" >
-
-                    <ImageButton
-                        android:layout_width="48dp"
-                        android:background="#FBFBFB"
-                        android:layout_height="47dp"
-                        android:contentDescription="Transfer"
-                        android:src="@drawable/ic_generate" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Generate"
-                        android:textStyle="bold"
-                        android:textColor="#2E5077"
-                        android:textSize="12sp" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -280,13 +264,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View All"
-                android:textSize="14sp"
-                android:textColor="#2E5077" />
         </LinearLayout>
 
         <ScrollView
