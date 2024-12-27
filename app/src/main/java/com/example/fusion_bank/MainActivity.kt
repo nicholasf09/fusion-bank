@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +41,16 @@ class MainActivity : AppCompatActivity() {
         val _btnHistory = findViewById<ImageButton>(R.id.btnHistory)
         val _btnTopUp = findViewById<ImageButton>(R.id.btnTopUp)
         val _btnTransfer = findViewById<ImageButton>(R.id.btnTransfer)
+        val signOut = findViewById<LinearLayout>(R.id.signOut)
         recyclerView = findViewById(R.id.recyclerView)
+
+        // Sign Out Button
+        signOut.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            email = ""
+            rekening = ""
+            startActivity(intent)
+        }
 
         // History Button
         _btnHistory.setOnClickListener {
