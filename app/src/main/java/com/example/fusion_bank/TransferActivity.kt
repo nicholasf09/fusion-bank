@@ -51,18 +51,16 @@ class TransferActivity : AppCompatActivity() {
                     "Are you sure you want to send Rp$nominal to account number $receiverRekening?"
                 )
                 .setPositiveButton("Yes") { _, _ ->
-                    // Call createTransaksi if confirmed
-                    createTransaksi(
-                        db = db,
-                        senderNoRek = noRek,
-                        receiverNoRek = receiverRekening,
+                    // Check account and perform transaction
+                    val transaksi = Transaksi (
+                        sender = noRek,
+                        receiver = receiverRekening,
                         jumlah = nominal,
                         berita = etBerita.text.toString(),
                         tanggal = Timestamp.now()
                     )
+                    checkAccount(transaksi)
 
-                    // Reset the app after successful transaction
-                    reset()
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     // Dismiss the dialog and stay on the page
@@ -91,6 +89,34 @@ class TransferActivity : AppCompatActivity() {
 
     companion object {
         var noRek: String = ""
+    }
+
+    fun checkAccount(transaksi: Transaksi) {
+        db.collection("user")
+            .document(transaksi.receiver)
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.data == null) {
+                    AlertDialog.Builder(this)
+                        .setTitle("Error")
+                        .setMessage("Account not found")
+                        .setPositiveButton("OK", null)
+                        .show()
+                } else {
+                    createTransaksi(
+                        db = db,
+                        senderNoRek = noRek,
+                        receiverNoRek = transaksi.receiver,
+                        jumlah = transaksi.jumlah,
+                        berita = transaksi.berita,
+                        tanggal = Timestamp.now()
+                    )
+
+                    // Reset the app after successful transaction
+                    reset()
+                }
+            }
+
     }
 
     fun createTransaksi(
@@ -151,7 +177,7 @@ class TransferActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                finish() // Ensures all activities are removed
+                finishAffinity() // Ensures all activities are removed
             }
             .show()
     }
