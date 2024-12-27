@@ -36,7 +36,7 @@ class adapterMutasi (private val data: List<Transaksi>) : RecyclerView.Adapter<a
 
         val jumlahMutasi = transaksi.jumlah.toInt()
 
-        val green = ContextCompat.getColor(holder.itemView.context, R.color.blue)
+        val green = ContextCompat.getColor(holder.itemView.context, R.color.green)
         val red = ContextCompat.getColor(holder.itemView.context, R.color.red)
 
         if (jumlahMutasi < 0) {

@@ -144,8 +144,10 @@ class LoginActivity : AppCompatActivity() {
                                 } else {
                                     Toast.makeText(this, "Login Success}", Toast.LENGTH_SHORT)
                                         .show()
-                                    startActivity(Intent(this, MainActivity::class.java))
+                                    val intent = Intent(this, MainActivity::class.java)
                                     MainActivity.email = email
+                                    MainActivity.rekening = querySnapshot.documents[0].id
+                                    startActivity(intent)
                                     finish()
                                 }
                             }

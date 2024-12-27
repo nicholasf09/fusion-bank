@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             email = ""
             rekening = ""
             startActivity(intent)
+            finish()
         }
 
         // History Button

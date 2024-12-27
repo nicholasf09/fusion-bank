@@ -13,8 +13,8 @@
         android:text="Top Up"
         android:layout_gravity="center"
         android:textColor="@color/black"
-        android:textSize="32sp"
-        android:layout_marginTop="12dp"
+        android:textSize="36sp"
+        android:layout_marginTop="36dp"
         android:textStyle="bold" />
 
     <EditText
@@ -24,8 +24,8 @@
         android:id="@+id/topUpAmount"
         android:background="@drawable/background_input"
         android:padding="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="18dp"
         android:inputType="number"/>
 
 
@@ -33,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/topUpButton"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_main"
         tools:layout_editor_absoluteX="0dp"
         android:text="Top Up"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="18dp"
         tools:layout_editor_absoluteY="315dp" />
 
 
