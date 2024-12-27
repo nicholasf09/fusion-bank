@@ -45,6 +45,11 @@ class Mutasi : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             readData()
+
+            if (arTransaksi.size <= 0) {
+                return@launch
+            }
+
             initHome()
 
             val filteredList = arTransaksi.filter {
