@@ -3,20 +3,26 @@ package com.example.fusion_bank
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
-    var db = Firebase.firestore
-
-    var transaksi = ArrayList<Transaksi>()
-    var user = ArrayList<User>()
+    private var db = Firebase.firestore
+    private var transaksi = ArrayList<Transaksi>()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +34,43 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        var username = findViewById<TextView>(R.id.username)
-        var noRek = findViewById<TextView>(R.id.norek)
-        var saldo = findViewById<TextView>(R.id.saldo)
+        val username = findViewById<TextView>(R.id.username)
+        val noRek = findViewById<TextView>(R.id.norek)
+        val saldo = findViewById<TextView>(R.id.saldo)
+        val _btnHistory = findViewById<ImageButton>(R.id.btnHistory)
+        val _btnTopUp = findViewById<ImageButton>(R.id.btnTopUp)
+        val _btnTransfer = findViewById<ImageButton>(R.id.btnTransfer)
+        recyclerView = findViewById(R.id.recyclerView)
 
+        // History Button
+        _btnHistory.setOnClickListener {
+            val intent = Intent(this, Mutasi::class.java)
+            Mutasi.noRek = noRek.text.toString()
+            Mutasi.nama = username.text.toString()
+            startActivity(intent)
+        }
+
+        // Top-Up Button
+        _btnTopUp.setOnClickListener {
+            val intent = Intent(this, TopUp::class.java)
+            TopUp.noRek = noRek.text.toString()
+            startActivity(intent)
+        }
+
+        // Transfer Button
+        _btnTransfer.setOnClickListener {
+            val intent = Intent(this, TransferActivity::class.java)
+            TransferActivity.noRek = noRek.text.toString()
+            startActivity(intent)
+        }
+
+        // Load User and Transaction Data
         db.collection("user")
             .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    var user = User(
+                    val user = User(
                         document.id,
                         document.data["username"].toString(),
                         document.data["saldo"].toString(),
@@ -46,36 +79,90 @@ class MainActivity : AppCompatActivity() {
                     )
                     noRek.text = user.noRek
                     username.text = user.username
-                    MainActivity.noRek = document.id
 
-                    var tempNumber = user.saldo
-                    var sisa = tempNumber.length % 3 // cek apakah kelipatan 3
-                    var rupiah = if (sisa == 0) "" else tempNumber.substring(0, sisa) // jika iya maka ambil angka didepan
-                    val ribuan = tempNumber.substring(sisa).chunked(3) // kemudian ambil 3 angka berikutnya
+                    val formattedSaldo = formatCurrency(user.saldo)
+                    saldo.text = formattedSaldo
+                }
 
-                    if (ribuan != null) {
-                        val separator = if (sisa != 0) "." else ""
-                        rupiah += separator + ribuan.joinToString(".")
-                    }
-
-                    var finalSaldo = "Rp. $rupiah"
-                    saldo.text = finalSaldo
+                // Load the last 3 transactions
+                CoroutineScope(Dispatchers.Main).launch {
+                    fetchLastThreeTransactions(username.text.toString())
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("TAG", "Error getting documents: ", exception)
             }
+    }
 
-        var logout = findViewById<LinearLayout>(R.id.logout)
+    private suspend fun fetchLastThreeTransactions(username: String) {
+        try {
+            // Fetch transactions where the user is either sender or receiver
+            val resultSender = db.collection("transaksi")
+                .whereEqualTo("sender", username)
+                .get()
+                .await()
 
-        logout.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            email = ""
-            finish()
+            for (document in resultSender) {
+                transaksi.add(
+                    Transaksi(
+                        document.data["sender"].toString(),
+                        document.data["receiver"].toString(),
+                        document.data["jumlah"].toString().toInt(),
+                        document.data["berita"].toString(),
+                        document.data["tanggal"] as Timestamp
+                    )
+                )
+            }
+
+            val resultReceiver = db.collection("transaksi")
+                .whereEqualTo("receiver", username)
+                .get()
+                .await()
+
+            for (document in resultReceiver) {
+                val transaksiItem = Transaksi(
+                    document.data["sender"].toString(),
+                    document.data["receiver"].toString(),
+                    document.data["jumlah"].toString().toInt(),
+                    document.data["berita"].toString(),
+                    document.data["tanggal"] as Timestamp
+                )
+                if (!transaksi.contains(transaksiItem)) {
+                    transaksi.add(transaksiItem)
+                }
+            }
+
+            // Sort by date and take the last 3 transactions
+            transaksi.sortByDescending { it.tanggal }
+            val lastThreeTransactions = transaksi.take(3)
+
+            // Bind the filtered list to the RecyclerView
+            showTransactions(lastThreeTransactions)
+        } catch (e: Exception) {
+            Log.e("TAG", "Error fetching transactions: ${e.message}")
         }
     }
+
+    private fun showTransactions(transactions: List<Transaksi>) {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapterMutasi(transactions)
+    }
+
+    private fun formatCurrency(amount: String): String {
+        var tempNumber = amount
+        val sisa = tempNumber.length % 3
+        var rupiah = if (sisa == 0) "" else tempNumber.substring(0, sisa)
+        val ribuan = tempNumber.substring(sisa).chunked(3)
+
+        if (ribuan != null) {
+            val separator = if (sisa != 0) "." else ""
+            rupiah += separator + ribuan.joinToString(".")
+        }
+        return "Rp. $rupiah"
+    }
+
     companion object {
         var email: String = ""
-        var noRek: String = ""
+        var rekening: String = ""
     }
 }

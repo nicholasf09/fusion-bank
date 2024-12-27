@@ -37,6 +37,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -55,4 +59,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.github.yuriy-budiyev:code-scanner:2.3.0")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0") {
+        isTransitive = true // Enable transitive dependencies
+    }
+    implementation("com.google.zxing:core:3.3.0")
 }

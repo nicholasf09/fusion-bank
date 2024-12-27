@@ -66,7 +66,7 @@ class Mutasi : AppCompatActivity() {
     }
 
     suspend fun readData() {
-        val result = db.collection("transaksi").get().await()
+        val result = db.collection("transaksi").whereEqualTo("sender", nama).get().await()
         for (document in result) {
             arTransaksi.add(
                 Transaksi(
@@ -77,6 +77,20 @@ class Mutasi : AppCompatActivity() {
                     document.data["tanggal"] as Timestamp
                 )
             )
+        }
+
+        val result2 = db.collection("transaksi").whereEqualTo("receiver", nama).get().await()
+        for (document in result2) {
+            val transaksi =
+                Transaksi(
+                    document.data["sender"].toString(),
+                    document.data["receiver"].toString(),
+                    document.data["jumlah"].toString().toInt(),
+                    document.data["berita"].toString(),
+                    document.data["tanggal"] as Timestamp
+                )
+            if (!arTransaksi.contains(transaksi)) arTransaksi.add(transaksi)
+
         }
     }
 
@@ -143,8 +157,8 @@ class Mutasi : AppCompatActivity() {
     }
 
     companion object {
-        val noRek = "0907 2004"
-        val nama = "Test"
+        var noRek: String = ""
+        var nama: String = ""
     }
 
 }
