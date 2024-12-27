@@ -120,7 +120,7 @@ class TopUp : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                finishAffinity() // Ensures all activities are removed
+                finish() // Ensures all activities are removed
             }
             .show()
     }
