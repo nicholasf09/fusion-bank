@@ -65,18 +65,38 @@ class TopUp : AppCompatActivity() {
         db.collection("user").document(noRek).get()
             .addOnSuccessListener { result ->
                 // Ensure the saldo exists and is an integer
-                val saldo = result.getLong("saldo")?.toInt() ?: 0 // Safely parse saldo
+                val saldo = result.getLong("saldo")?.toInt() ?: 0
+                val username = result.getString("username") ?: "Unknown User" // Fetch username
+
+                // Update the saldo
                 db.collection("user").document(noRek)
                     .update("saldo", saldo + amount)
                     .addOnSuccessListener {
-                        // Log success
-                        reset()
+                        reset() // Reset and notify user of success
                     }
                     .addOnFailureListener { e ->
-                        // Handle update failure
                         AlertDialog.Builder(this)
                             .setTitle("Error")
                             .setMessage("Failed to update balance: ${e.message}")
+                            .setPositiveButton("OK", null)
+                            .show()
+                    }
+
+                // Add transaction after saldo update
+                db.collection("transaksi")
+                    .add(
+                        Transaksi(
+                            sender = username, // Use the retrieved username
+                            receiver = username, // Use the same username since it's a top-up
+                            jumlah = amount,
+                            berita = "Top Up $formattedAmount",
+                            tanggal = com.google.firebase.Timestamp.now()
+                        )
+                    )
+                    .addOnFailureListener { e ->
+                        AlertDialog.Builder(this)
+                            .setTitle("Error")
+                            .setMessage("Failed to log transaction: ${e.message}")
                             .setPositiveButton("OK", null)
                             .show()
                     }
@@ -86,25 +106,6 @@ class TopUp : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage("Failed to fetch user data: ${e.message}")
-                    .setPositiveButton("OK", null)
-                    .show()
-            }
-
-        // Add transaction after saldo update
-        db.collection("transaksi")
-            .add(
-                Transaksi(
-                    noRek,
-                    noRek,
-                    amount,
-                    "Top Up $formattedAmount",
-                    com.google.firebase.Timestamp.now()
-                )
-            )
-            .addOnFailureListener { e ->
-                AlertDialog.Builder(this)
-                    .setTitle("Error")
-                    .setMessage("Failed to log transaction: ${e.message}")
                     .setPositiveButton("OK", null)
                     .show()
             }

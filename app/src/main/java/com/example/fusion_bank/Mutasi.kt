@@ -66,7 +66,7 @@ class Mutasi : AppCompatActivity() {
     }
 
     suspend fun readData() {
-        val result = db.collection("transaksi").whereEqualTo("sender", noRek).get().await()
+        val result = db.collection("transaksi").whereEqualTo("sender", nama).get().await()
         for (document in result) {
             arTransaksi.add(
                 Transaksi(
@@ -79,7 +79,7 @@ class Mutasi : AppCompatActivity() {
             )
         }
 
-        val result2 = db.collection("transaksi").whereEqualTo("receiver", noRek).get().await()
+        val result2 = db.collection("transaksi").whereEqualTo("receiver", nama).get().await()
         for (document in result2) {
             val transaksi =
                 Transaksi(
