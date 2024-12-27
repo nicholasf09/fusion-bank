@@ -11,10 +11,9 @@
     tools:context=".GenerateQR">
 
     <TextView
-        android:id="@+id/tvNamaRekening"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama Rekening"
+        android:text="Your QR Code"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold" />

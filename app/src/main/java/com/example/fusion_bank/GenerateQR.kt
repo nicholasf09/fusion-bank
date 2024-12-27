@@ -29,7 +29,6 @@ class GenerateQR : AppCompatActivity() {
             insets
         }
         ivQRCode = findViewById(R.id.ivQRCode)
-        tvNamaRekening = findViewById(R.id.tvNamaRekening)
         tvNoRekening = findViewById(R.id.tvNoRekening)
         val _btnBack = findViewById<Button>(R.id.btnBack)
 
