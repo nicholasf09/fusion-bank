@@ -306,6 +306,7 @@
                 android:paddingVertical="12dp">
 
                 <TextView
+                    android:id="@+id/profil1"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -323,6 +324,7 @@
                     android:paddingStart="12dp">
 
                     <TextView
+                        android:id="@+id/username1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alberto Montero"
@@ -331,6 +333,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tanggal1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="21 Feb"
@@ -338,8 +341,8 @@
                         android:textColor="#888888" />
                 </LinearLayout>
 
-                <!-- Amount -->
                 <TextView
+                    android:id="@+id/jumlah1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+$8,50"
@@ -356,6 +359,7 @@
                 android:paddingVertical="8dp">
 
                 <TextView
+                    android:id="@+id/profil2"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -373,6 +377,7 @@
                     android:paddingStart="16dp">
 
                     <TextView
+                        android:id="@+id/username2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lucas Cardozo"
@@ -381,6 +386,7 @@
                         android:textColor="#000000" />
 
                     <TextView
+                        android:id="@+id/tanggal2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20 Feb"
@@ -389,6 +395,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/jumlah2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-$8.50"
@@ -406,6 +413,7 @@
 
                 <!-- Circle with Initials -->
                 <TextView
+                    android:id="@+id/profil3"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -424,6 +432,7 @@
                     android:paddingStart="12dp">
 
                     <TextView
+                        android:id="@+id/username3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alberto Montero"
@@ -432,6 +441,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tanggal3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="21 Feb"
@@ -441,6 +451,7 @@
 
                 <!-- Amount -->
                 <TextView
+                    android:id="@+id/jumlah3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+$8,50"
@@ -457,6 +468,7 @@
 
                 <!-- Circle with Initials -->
                 <TextView
+                    android:id="@+id/profil4"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -475,6 +487,7 @@
                     android:paddingStart="12dp">
 
                     <TextView
+                        android:id="@+id/username4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alberto Montero"
@@ -483,6 +496,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tanggal4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="21 Feb"
@@ -492,6 +506,7 @@
 
                 <!-- Amount -->
                 <TextView
+                    android:id="@+id/jumlah4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+$8,50"
@@ -508,6 +523,7 @@
 
                 <!-- Circle with Initials -->
                 <TextView
+                    android:id="@+id/profil5"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -526,6 +542,7 @@
                     android:paddingStart="12dp">
 
                     <TextView
+                        android:id="@+id/username5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alberto Montero"
@@ -534,6 +551,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tanggal5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="21 Feb"
@@ -543,6 +561,7 @@
 
                 <!-- Amount -->
                 <TextView
+                    android:id="@+id/jumlah5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+$8,50"
@@ -564,7 +583,7 @@
         android:gravity="center"
         android:layout_gravity="bottom">
 
-        <!-- Home Button -->
+        <!-- Home Bututon -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -630,6 +649,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"

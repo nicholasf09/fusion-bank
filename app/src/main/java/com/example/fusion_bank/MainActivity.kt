@@ -1,7 +1,9 @@
 package com.example.fusion_bank
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                     )
                     noRek.text = user.noRek
                     username.text = user.username
+                    MainActivity.noRek = document.id
 
                     var tempNumber = user.saldo
                     var sisa = tempNumber.length % 3 // cek apakah kelipatan 3
@@ -63,12 +66,16 @@ class MainActivity : AppCompatActivity() {
                 Log.w("TAG", "Error getting documents: ", exception)
             }
 
+        var logout = findViewById<LinearLayout>(R.id.logout)
 
-
-
-
+        logout.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            email = ""
+            finish()
+        }
     }
     companion object {
         var email: String = ""
+        var noRek: String = ""
     }
 }
