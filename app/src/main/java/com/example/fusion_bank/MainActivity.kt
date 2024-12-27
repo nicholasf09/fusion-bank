@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TransferActivity::class.java)
             TransferActivity.noRek = noRek.text.toString()
             startActivity(intent)
-            finish()
         }
 
         // Load User and Transaction Data

@@ -111,9 +111,6 @@ class TransferActivity : AppCompatActivity() {
                         berita = transaksi.berita,
                         tanggal = Timestamp.now()
                     )
-
-                    // Reset the app after successful transaction
-                    reset()
                 }
             }
 
@@ -164,6 +161,8 @@ class TransferActivity : AppCompatActivity() {
             null
         }.addOnSuccessListener {
             Log.d("Firebase", "Transaction completed successfully")
+            // Reset the app after successful transaction
+            reset()
         }.addOnFailureListener { e ->
             Log.d("Firebase", "Transaction failed: ${e.message}")
         }
