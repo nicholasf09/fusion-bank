@@ -107,38 +107,41 @@ class MainActivity : AppCompatActivity() {
     private suspend fun fetchLastThreeTransactions(username: String) {
         try {
             // Fetch transactions where the user is either sender or receiver
-            val resultSender = db.collection("transaksi")
-                .whereEqualTo("sender", username)
-                .get()
-                .await()
-
-            for (document in resultSender) {
-                transaksi.add(
-                    Transaksi(
-                        document.data["sender"].toString(),
-                        document.data["receiver"].toString(),
-                        document.data["jumlah"].toString().toInt(),
-                        document.data["berita"].toString(),
-                        document.data["tanggal"] as Timestamp
-                    )
-                )
-            }
-
             val resultReceiver = db.collection("transaksi")
                 .whereEqualTo("receiver", username)
                 .get()
                 .await()
 
             for (document in resultReceiver) {
-                val transaksiItem = Transaksi(
+                val transaksiItem1 = Transaksi(
                     document.data["sender"].toString(),
                     document.data["receiver"].toString(),
                     document.data["jumlah"].toString().toInt(),
                     document.data["berita"].toString(),
                     document.data["tanggal"] as Timestamp
                 )
-                if (!transaksi.contains(transaksiItem)) {
-                    transaksi.add(transaksiItem)
+                if (!transaksi.contains(transaksiItem1)) {
+                    transaksiItem1.receiver = transaksiItem1.sender
+                    transaksi.add(transaksiItem1)
+                }
+            }
+
+            val resultSender = db.collection("transaksi")
+                .whereEqualTo("sender", username)
+                .get()
+                .await()
+
+            for (document in resultSender) {
+                val transaksiItem2 = Transaksi(
+                    document.data["sender"].toString(),
+                    document.data["receiver"].toString(),
+                    document.data["jumlah"].toString().toInt(),
+                    document.data["berita"].toString(),
+                    document.data["tanggal"] as Timestamp
+                )
+                if (!transaksi.contains(transaksiItem2)) {
+                    transaksiItem2.jumlah = transaksiItem2.jumlah.toInt() * -1
+                    transaksi.add(transaksiItem2)
                 }
             }
 

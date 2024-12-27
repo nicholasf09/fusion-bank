@@ -68,15 +68,17 @@ class Mutasi : AppCompatActivity() {
     suspend fun readData() {
         val result = db.collection("transaksi").whereEqualTo("receiver", nama).get().await()
         for (document in result) {
-            arTransaksi.add(
-                Transaksi(
-                    document.data["sender"].toString(),
-                    document.data["receiver"].toString(),
-                    document.data["jumlah"].toString().toInt(),
-                    document.data["berita"].toString(),
-                    document.data["tanggal"] as Timestamp
-                )
+            val transaksiItem1 = Transaksi(
+                document.data["sender"].toString(),
+                document.data["receiver"].toString(),
+                document.data["jumlah"].toString().toInt(),
+                document.data["berita"].toString(),
+                document.data["tanggal"] as Timestamp
             )
+            if (!arTransaksi.contains(transaksiItem1)) {
+                transaksiItem1.receiver = transaksiItem1.sender
+                arTransaksi.add(transaksiItem1)
+            }
         }
 
         val result2 = db.collection("transaksi").whereEqualTo("sender", nama).get().await()
