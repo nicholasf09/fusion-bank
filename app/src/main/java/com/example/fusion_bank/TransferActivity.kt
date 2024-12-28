@@ -14,6 +14,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import kotlin.math.log
 
 class TransferActivity : AppCompatActivity() {
     val db = Firebase.firestore
@@ -35,9 +36,15 @@ class TransferActivity : AppCompatActivity() {
         var etBerita = findViewById<EditText>(R.id.etBerita)
         var etNominal = findViewById<EditText>(R.id.etNominal)
 
+        var noRekReceiver = intent.getStringExtra("receiver").toString()
+
+        etRekening.setText(noRekReceiver)
+
         btnTransfer.setOnClickListener {
             val receiverRekening = etRekening.text.toString()
             val nominal = etNominal.text.toString().toIntOrNull()
+
+            Log.d("TransferActivity", "Receiver: $receiverRekening, Nominal: $nominal, Norek: $noRek")
 
             if (receiverRekening.isBlank() || nominal == null || nominal <= 0) {
                 Log.d("TransferActivity", "Invalid input")

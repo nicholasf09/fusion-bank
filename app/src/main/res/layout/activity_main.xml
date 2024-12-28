@@ -309,6 +309,7 @@
 
         <!-- Search Button -->
         <LinearLayout
+            android:id="@+id/userList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"

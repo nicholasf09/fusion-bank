@@ -42,8 +42,15 @@ class MainActivity : AppCompatActivity() {
         val _btnTopUp = findViewById<ImageButton>(R.id.btnTopUp)
         val _btnTransfer = findViewById<ImageButton>(R.id.btnTransfer)
         val signOut = findViewById<LinearLayout>(R.id.signOut)
+        val btnUser = findViewById<LinearLayout>(R.id.userList)
         recyclerView = findViewById(R.id.recyclerView)
 
+        btnUser.setOnClickListener {
+            val intent = Intent(this, UserListActivity::class.java)
+            intent.putExtra("email", email)
+            intent.putExtra("rekening", rekening)
+            startActivity(intent)
+        }
         // Sign Out Button
         signOut.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
