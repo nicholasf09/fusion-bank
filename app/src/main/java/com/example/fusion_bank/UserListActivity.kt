@@ -41,7 +41,7 @@ class UserListActivity : AppCompatActivity() {
 
         var email = intent.getStringExtra("email")
 
-        var rekening = intent.getStringExtra("rekening")
+        var rekening = intent.getStringExtra("rekening").toString()
 
         readData(db)
 
@@ -61,9 +61,9 @@ class UserListActivity : AppCompatActivity() {
             val item = parent.getItemAtPosition(position) as Map<String, String>
             val intent = Intent(this, TransferActivity::class.java)
             intent.putExtra("receiver", item["Nama"])
-            TransferActivity.noRek = intent.getStringExtra("rekening").toString()
+            TransferActivity.noRek = rekening
             startActivity(intent)
-            Log.d("UserListActivity", "Receiver: ${item["Nama"]}, Norek: $rekening")
+            Log.d("UserListActivity", "Receiver: ${item["Nama"]}, Norek: ${TransferActivity.noRek}")
         }
 
     }
