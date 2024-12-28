@@ -45,8 +45,13 @@ class LoginActivity : AppCompatActivity() {
         var etEmail = findViewById<EditText>(R.id.etEmail);
         var etPassword = findViewById<EditText>(R.id.etPassword);
         var btnSignIn = findViewById<Button>(R.id.btnSignIn);
+        val btnSignUp = findViewById<Button>(R.id.btnSignUp)
         var googleSignInLayout = findViewById<LinearLayout>(R.id.googleSignInLayout);
 
+        btnSignUp.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         btnSignIn.setOnClickListener() {
             var email = etEmail.text.toString();
